@@ -12,4 +12,6 @@ module.exports = function (app) {
   app.route("/tambah").post(controller.tambahMahasiswa);
 
   app.route("/edit").put(controller.editMahasiswa);
+
+  app.route("/hapus").delete(controller.hapusMahasiswa);
 };
