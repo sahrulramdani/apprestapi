@@ -8,7 +8,7 @@ exports.index = function (req, res) {
 };
 
 exports.tampilMahasiswa = function (req, res) {
-  connection.query("SELECT * FROM mahasiswa", function (error, rows, field) {
+  connection.query("SELECT * FROM mahasiswa", function (error, rows, fields) {
     if (error) {
       console.log(error);
     } else {
@@ -22,11 +22,29 @@ exports.detailMahasiswa = function (req, res) {
   connection.query(
     "SELECT * FROM mahasiswa WHERE id = ?",
     [id],
-    function (error, rows, field) {
+    function (error, rows, fields) {
       if (error) {
         console.log(error);
       } else {
         response.ok(rows, res);
+      }
+    }
+  );
+};
+
+exports.tambahMahasiswa = function (req, res) {
+  const nim = req.body.nim;
+  const nama = req.body.nama;
+  const jurusan = req.body.jurusan;
+
+  connection.query(
+    "INSERT INTO mahasiswa (nim, nama, jurusan) VALUES (?,?,?)",
+    [nim, nama, jurusan],
+    function (error, rows, fields) {
+      if (error) {
+        console.log(error);
+      } else {
+        response.ok("Data Berhasil Ditambahkan", res);
       }
     }
   );
